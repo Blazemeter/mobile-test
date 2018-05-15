@@ -68,9 +68,6 @@ def run(api_key, api_secret, name, silent):
     default_project_id = user_data['defaultProject']['id']
     logging.debug("Extracted project id %d", default_project_id)
 
-    devices = requests.get(url='{}/tests/list-mobile-devices'.format(base_url), auth=auth).json()['result']
-    device_arn_1 = [device['arn'] for device in devices if isinstance(device, dict) and device['platform'] == 'IOS' and device['os'] == "10.2"][0]
-
     project_name = name
     data = {
         "name": project_name,
@@ -79,11 +76,6 @@ def run(api_key, api_secret, name, silent):
             "plugins": {
                 "mobileTest": {
                     "enabled": True,
-                    "devices": [
-                        {
-                            "arn": device_arn_1
-                        }
-                    ]
                 }
             },
             "type": "mobile"
