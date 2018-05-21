@@ -103,7 +103,7 @@ def run(api_key, api_secret, name, silent):
     logging.info("Project created...id %d", test_id)
     logging.debug("Getting upload links")
     requests.post(
-        url='{}/tests/{}/mobile-tests/start-uploads'.format(base_url, test_id),
+        url='{}/tests/{}/mobile-tests/start-uploads?platform={}&framework={}'.format(base_url, test_id, 'IOS_APP', 'APPIUM_PYTHON_TEST_PACKAGE'),
         auth=auth)
     got_upload_links = False
     while not got_upload_links:
