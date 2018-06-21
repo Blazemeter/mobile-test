@@ -146,13 +146,13 @@ def run(api_key, api_secret, name, silent):
                 base_url, test_id),
             auth=auth,
             params={
-                "fileType": "app"
+                "fileType": "app",
+                "filename": os.path.split(application_path)[-1],
             })
         test_object = requests.get(
             url='{}/tests/{}'.format(base_url, test_id),
             auth=auth).json()['result']
-        mobile_test_configuration = test_object['configuration']['plugins'][
-            'mobileTest']
+        mobile_test_configuration = test_object['configuration']['plugins']['mobileTest']
 
         if 'appUploadStatus' in mobile_test_configuration and mobile_test_configuration['appUploadStatus'] == 'SUCCEEDED':
             app_upload_succeeded = True
@@ -181,7 +181,8 @@ def run(api_key, api_secret, name, silent):
                 base_url, test_id),
             auth=auth,
             params={
-                "fileType": "testPackage"
+                "fileType": "testPackage",
+                "filename": os.path.split(test_package)[-1],
             })
         test_object = requests.get(
             url='{}/tests/{}'.format(base_url, test_id),
